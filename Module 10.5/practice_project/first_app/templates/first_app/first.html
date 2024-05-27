@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>First App</title>
+    <style>
+        *{
+            margin-left:30px;
+        }
+        .filters{
+            border: 1px solid gray;
+            padding:20px;
+        }
+    </style>
+</head>
+<body>
+    <!--Navigation-->
+
+    <h1><a href="/first_app/home/">Navigation</a></h1>
+
+
+    <h1>This is first app page</h1>
+
+    <!--Filters-->
+    <div class="filters">
+        <h3>1. {{ v1 | add:"6" }} </h3>
+
+        <h3>2. {{ v2 | addslashes }} </h3>
+
+        <h3>3. {{ v3 | capfirst }} </h3>
+
+        <h3>4. "{{ v3 | center:"15" }}" </h3>
+
+        <h3>5. {{ v2 | cut:" " }} </h3>
+
+        <h3>6. {{ v4 | date:"D d M Y" }} </h3>
+        <h3>6. {{ v4 | date:"SHORT_DATE_FORMAT" }} </h3>
+        <h3>6. {{ v4 | date }} </h3>
+
+        <h3>7. {{ v5 | default:"nothing" }} </h3>
+
+        <h3>8. {{ v6 | dictsort:"name" }} </h3>
+
+        <h3>9. {{ v6 | dictsort:"age" }}  </h3>
+
+        <h3>10. {{ v7 | divisibleby:"3" }} ,{{ v7 | divisibleby:"6" }},{{ v7 | divisibleby:"5" }}  </h3>
+
+        <h3>11. {{ v8 | filesizeformat }} </h3>
+
+        <h3>12. {{ v9 | first }} </h3>
+
+        <h3>13. {{ v9| join:" // " }} </h3>
+
+        <h3>14. {{ v9 | last }} </h3>
+
+        <h3>15. {{ v9 | length }} </h3>
+
+        <h3>16. {{ v10 | lower }} </h3>
+
+        <h3>17. {{ v3 | make_list }} </h3>
+        <h3>17. {{ v8 | make_list }} </h3>
+
+        <h3>18. {{ v3 | random }} </h3>
+        <h3>18. {{ v9 | random }} </h3>
+
+        <h3>19. {{ v9 | slice:":2" }} </h3>
+        <h3>19. {{ v3 | slice:":2" }} </h3>
+
+        <h3>20. {{ v10| slugify }} </h3>
+
+        <h3>21. {{ v4| time:"H:i" }} </h3>
+
+        <h3>22. {{ v11 | title }} </h3>
+
+        <h3>23. {{ v11 | upper }}</h3>
+
+        <h3>24. {{ v11 | wordcount }} </h3>
+
+        <h3>25. {{ v10 | join:" - " }} </h3>
+        <h3>25. {{ v12 | join:" - " }} </h3>
+
+
+        
+
+
+    </div>
+    
+
+
+</body>
+</html>
