@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load static%}
+
+{% block content %}
+{{block.super}}
+
+    <!--Table-->
+    <section>
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">UserID</th>
+                <th scope="col">ID</th>
+                <th scope="col">Title</th>
+                <th scope="col">Body</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for i in data %}
+              <tr>
+                <th scope="row">{{i.userId}}</th>
+                <td>{{i.id}}</td>
+                <td>{{i.title}}</td>
+                <td>{{i.body}}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+    </section>
+
+    <div class="p-5 text-center">
+        <h1 class="p-3 ">This is first app <strong>home </strong> page.</h1>
+        <img src="{% static 'bird1.jpeg' %}" alt="Bird image 1">
+        <p class="p-3 ">Lorem ipsum dolor sit amet consectetur adipisicing elit. <br> Voluptatem at deleniti dicta animi cum dolorum praesentium nobis sapiente veniam! <br> Consequuntur culpa, laboriosam iusto assumenda beatae dicta amet aliquam provident doloribus?</p>
+    </div>
+    
+{% endblock content %}

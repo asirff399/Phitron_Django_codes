@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+{{block.super}}
+
+  <div class="p-5 pt-0 pb-0 text-center">
+    <h1 class="p-2 ">This is first app <strong>about</strong> page</h1>
+    <img class="p-2 " src="{% static 'images/bird2.jpeg' %}" alt="" />
+    <p class="p-2 ">Lorem ipsum dolor sit amet consectetur adipisicing elit. <br> Voluptatem at deleniti dicta animi cum dolorum praesentium nobis sapiente veniam! <br> Consequuntur culpa, laboriosam iusto assumenda beatae dicta amet aliquam provident doloribus?</p>
+  </div>
+    
+  <div class="container p-5 pt-1">
+    <h1 class="border text-center m-5">User Detailes</h1>
+    <h3><strong>Name: </strong>{{name}}</h3>
+    <h3><strong>Email: </strong>{{email}}</h3>
+    <h3><strong>Rating: </strong>{{select}}</h3>
+  </div>
+
+  {% comment %} <div class="container p-5 pt-1">
+    <h1 class="border text-center m-5">Student Detailes</h1>
+    <h3><strong>Name: </strong>{{name}}</h3>
+    <h3><strong>Email: </strong>{{email}}</h3>
+    <h3><strong>Age: </strong>{{select}}</h3>
+  </div> {% endcomment %}
+  
+{% endblock content %} 
