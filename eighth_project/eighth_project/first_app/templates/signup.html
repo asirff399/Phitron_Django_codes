@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block body %}
+{% load crispy_forms_tags %}
+    <h1 class="text-center m-2 ">Sign Up</h1>
+    {% if messages%}
+    {% for m in messages %}
+    <small {% if m.tags %} class="{{m.tags}}" {% endif %}>{{m}}</small>
+    {% endfor %}
+    {% endif %}
+    
+    <form method="post" style="width: 40%;margin: auto;" novalidate>
+        {% csrf_token %}
+        <!--{{form|crispy}}-->
+        {% for fm in form %}
+        {{ fm.label_tag }}
+        {{fm}}
+        {{fm.errors|striptags}}
+        {% endfor %}
+        <br>
+        <button class="btn btn-primary my-3" type="submit">Sign Up</button>
+        <br>
+        <small>Already have an account <a href="{% url 'loginpage' %}">Lohin</a></small>
+    </form>
+{% endblock body %}
