@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="m-5 text-center">
+  <h1 class="m-5">This is profile page.</h1>
+  <h3 class="m-5">Name: {{user.first_name}} {{user.last_name}}</h3>
+  <h3 class="m-5">Email: {{user.email}}</h3>
+  <a class="btn btn-info btn-sm m-3" href="{% url 'change_pass_with' %}">Change Your Password(with previous password)</a><br>
+  <a class="btn btn-secondary btn-sm m-3" href="{% url 'change_pass_without' %}">Change Your Password(without previous password)</a>
+</div>
+{% endblock content %}
