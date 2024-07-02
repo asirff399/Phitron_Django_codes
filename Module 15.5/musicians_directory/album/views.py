@@ -21,7 +21,7 @@ def edit_data(request,id):
             form.save()
             return redirect('homepage')
     else:
-        form = AlbumForm()
+        form = AlbumForm(instance=album)
     return render(request,'album.html',{'form':form})
 
 
