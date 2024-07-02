@@ -26,7 +26,6 @@ def edit_data(request,id):
 
 
 def delete_data(request,id):
-    album = Album.objects.get(pk=id) 
+    album = Album.objects.get(pk=id)
     album.delete()
     return redirect('homepage')
-
