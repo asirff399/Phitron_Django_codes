@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div class="d-flex flex-wrap justify-content-center gap-5 px-5 pt-3 align-items-center m-3 ">
+    <div class="col-4">
+        <h1 class="fw-bolder">Welcome to Car World</h1>
+        <p>A car is a vehicle that has wheels, carries a small number of passengers, and is moved by an engine or a motor. Cars are also called automobiles or motor vehicles. Trucks and buses are motor vehicles as well. However, trucks and buses are larger than cars, and they carry heavier loads.</p>    
+        
+    </div>
+    <div class="col-5 ms-5">
+        <img class="rounded-pill" src="{% static 'banner1.jpg' %}" />
+    </div> 
+</div>  
+
+<div class="d-flex justify-content-center m-5 pt-3 border">
+    <div class="btn-group " role="group" aria-label="Basic checkbox toggle button group">
+        <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+          {% for b in brand %}
+          <div class="m-3">
+            <input type="radio" class="btn-check" name="brand" id="{{b.id}}" autocomplete="off">
+            <label class="btn btn-outline-primary" for="{{b.id}}">
+                <a  href="{% url 'brand_wise' b.slug %}" class="text-decoration-none text-dark" >{{b.name}}</a>
+            </label>
+          </div>
+          {% endfor %}
+        </div>
+    </div>
+</div>
+<div class="w-25 ms-5 text-center ">
+    <h5 class="w-50 border p-3 bg-warning rounded-pill">Total Car Found : {{ data | length}}</h5> 
+</div>
+<div class="d-flex flex-wrap m-5 gap-3 border p-3 ">
+    {% for c in data %}
+    <div class="card" style="width: 22rem;">
+        {% if c.image %}
+            <img src="{{c.image.url}}" class="card-img-top img-fluid"  alt="some issue...">
+        {% else %}
+            <img src="{% static 'default-car-image.jpg' %}" class="card-img-top img-fluid w-75" alt="Default image">
+        {% endif %}
+        <div class="card-body">
+          <h3 class="card-title">{{c.name}}</h3>
+          <h5 class="card-title"><strong>Price: </strong>${{c.price}}</h5>
+          <h5 class="card-title"><Strong>Brand: </Strong>{{c.brand}}</h5>
+          <h5 class="card-title"><Strong>Model: </Strong>{{c.model}}</h5>
+          <p class="card-text">{{c.body | truncatewords:10}}</p>
+          <a href="{% url 'details' c.id %}" class="btn btn-danger">Details</a>
+        </div>
+      </div>
+    {% endfor %}
+</div>
+
+
+
+{% endblock content %}

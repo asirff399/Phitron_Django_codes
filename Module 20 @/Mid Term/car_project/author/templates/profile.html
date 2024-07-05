@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load static%}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="">
+    <div class="text-center w-25 card mx-auto my-3">
+        <h1>Profile</h1>
+        <h4><strong>Name:</strong> {{user.first_name}} {{user.last_name}}</h4>
+        <h6><strong>Email:</strong> {{user.email}}</h6>
+        <a href="{% url 'edit_profile' %}" class="btn btn-info fw-bolder m-3">Edit Your Profile</a>
+    </div> 
+</div>
+     
+    
+    <div>
+        <h1 class="m-5 text-center">Your Bought Cars</h1>
+        <div class="d-flex flex-wrap m-5 gap-3 border p-3 ">
+            {% for order in orders %}
+            <div class="card" style="width: 22rem;">
+                {% if order.car.image %}
+                    <img src="{{order.car.image.url}}" class="card-img-top img-fluid"  alt="some issue...">
+                {% else %}
+                    <img src="{% static 'default-car-image.jpg' %}" class="card-img-top img-fluid w-75" alt="Default image">
+                {% endif %}
+                <div class="card-body">
+                  <h2 class="card-title text-center card ">{{order.car.name}}</h2>
+                  <h5 class="card-title"><Strong>Brand: </Strong>{{order.car.brand}}</h5>
+                  <h5 class="card-title"><Strong>Model: </Strong>{{order.car.model}}</h5>
+                  <p class="card-text">{{order.car.body }}</p>
+                </div>
+              </div>
+            {% endfor %}
+        </div>
+    </div>
+    
+{% endblock content %}
+
