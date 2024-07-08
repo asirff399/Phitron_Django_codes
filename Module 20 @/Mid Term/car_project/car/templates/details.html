@@ -45,14 +45,12 @@
     {% endfor %}
 </div>
 <div class="m-5">
-    {% if request.user.is_authenticated%}
     <form class="card p-3 " style="width:70% ; margin : auto" method="post">
         <h1 class="text-center">Comment</h1>
         {% csrf_token %}
         {{ comment_form | crispy}}
         <button class="btn btn-warning" >Submit</button>
     </form>
-    {% endif %}
 </div>
 
 {% endblock content %}
