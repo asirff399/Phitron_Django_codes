@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="Dummy Library Managemen" />
+        <title>
+            {% block head_title %}Library Management{% endblock %}
+        </title>
+        <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        {% block head_extra %}{% endblock %}
+        <style>
+            footer {
+                position: fixed !important;
+                bottom: 0 !important;
+                width: 100%;
+            }
+        </style>
+    </head>
+    <body style="background-color: #d4e6f1 ;">
+        {% include 'navbar.html' %}
+        {% block body %}
+            <div class="lg:container lg:mx-auto" id="main">
+                {% include 'messages.html' %}
+                {% block content %}
+                {% endblock %}
+            </div>
+            {% include 'footer.html' %}
+
+        {% endblock %}
+    </body>
+
+</html>

@@ -1,0 +1,98 @@
+{% extends 'base.html' %} 
+{% load static %}
+{% load humanize %}
+{% block head_title %} Order Report{% endblock %} {% block content %}
+
+
+<div class="my-10 py-3 px-4 bg-white rounded-xl shadow-md " style="margin-bottom: 100px;">
+  <h1 class="font-bold text-3xl text-center pb-5 pt-2">Order Report</h1>
+  <hr />
+  <form method="get" action="{% url 'transaction_report' %}">
+    <div class="flex justify-center">
+      <div
+        class="mt-10 pl-3 pr-2 bg-white border rounded-md border-gray-500 flex justify-between items-center relative w-4/12 mx-2"
+      >
+        <label for="start_date">From:</label>
+        <input
+          class="appearance-none w-full outline-none focus:outline-none active:outline-none"
+          type="date"
+          id="start_date"
+          name="start_date"
+        />
+      </div>
+ 
+      <div
+        class="mt-10 pl-3 pr-2 bg-white border rounded-md border-gray-500 flex justify-between items-center relative w-4/12"
+      >
+        <label for="end_date">To:</label>
+        <input
+          class="appearance-none w-full outline-none focus:outline-none active:outline-none"
+          type="date"
+          id="end_date"
+          name="end_date"
+        />
+      </div>
+      <div class="mt-10 pl-3 pr-2 flex justify-between items-center relative w-4/12">
+        <button
+          class="bg-blue-900 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          type="submit"
+        >
+          Filter
+        </button>
+      </div>
+    </div>
+  </form>
+  <table
+    class="table-auto mx-auto w-full px-5 rounded-xl mt-8 border dark:border-neutral-500"
+  >
+    <thead class="bg-purple-900 text-white text-left">
+      <tr
+        class="bg-gradient-to-tr from-indigo-600 to-purple-600 rounded-md py-2 px-4 text-white font-bold"
+      >
+        <th class="px-4 py-2">Book Title</th>
+        <th class="px-4 py-2">Date</th>
+        <th class="px-4 py-2">Order Type</th>
+        <th class="px-4 py-2">Borrow Amount</th>
+        <th class="px-4 py-2">Balance After Order</th>
+        <th class="px-4 py-2">Return Book</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for order in object_list %}
+      <tr class="border-b dark:border-neutral-500">
+        <td class="px-4 py-2">
+          {{ order.book.title}}
+        </td>
+        <td class="px-4 py-2">
+          {{ order.timestamp|date:"F d, Y h:i A" }}
+        </td>
+        <td class="px-4 py-3 text-s border">
+          <span
+            class="px-2 py-1 font-bold leading-tight rounded-sm {% if order.get_order_type_display == 'Withdrawal' %} text-red-700 bg-red-100 {% else %} text-green-700 bg-green-100 {% endif %}"
+          >
+            {{ order.get_order_type_display }}
+          </span>
+        </td>
+        <td class="px-4 py-2">
+          $ {{ order.book.borrowing_price|floatformat:2|intcomma }}
+        </td>
+        <td class="px-4 py-2">
+          $ {{ order.balance_after_order|floatformat:2|intcomma }}
+        </td>
+        <td class="px-4 py-2">
+          <a href="{% url 'return' order.book.id %}" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-black bg-gray-300 rounded-lg hover:bg-blue-800 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+            Return
+          </a>
+        </td>
+      </tr>
+      {% endfor %}
+      <tr>
+        <th class="px-4 py-2 text-right" colspan="4">Current Balance</th>
+        <th class="px-4 py-2 text-left">
+          $ {{ account.balance|floatformat:2|intcomma }}
+        </th>
+      </tr>
+    </tbody>
+  </table>
+</div>
+{% endblock %}

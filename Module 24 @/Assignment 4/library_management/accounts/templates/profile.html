@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load humanize %}
+{% block head_title %} Order Report{% endblock %} 
+{% block content %}
+<div class="flex justify-center my-3">
+    <div class="text-center w-84 p-5 bg-blue-200 shadow-lg mx-auto">
+        <h1 class="text-2xl font-bold">Profile</h1>
+        <h4 class="mt-2"><strong>Name:</strong> {{user.first_name}} {{user.last_name}}</h4>
+        <h6 class="mt-1 pb-2"><strong>Email:</strong> {{user.email}}</h6>
+        <a href="{% url 'update_profile' %}" class="btn btn-info fw-bolder m-3 inline-block bg-blue-500 text-white px-4 py-2 rounded-lg mt-3 hover:bg-blue-700">Update Your Profile</a>
+    </div> 
+</div>
+
+<button type="button" class="text-white p-4 m-10 bg-black font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"><a href="{% url 'order_report' %}">Your Order Report</a></button>
+
+<div>
+  <h1 class="m-5 text-center text-4xl font-bold shadow-inner">Your Borrowed books</h1>
+  <div class="flex flex-wrap m-5 gap-3 p-3 ">
+    {% for order in orders %}
+<div class="max-w-sm shadow-2xl bg-gray-200 border border-gray-200 rounded-lg  dark:bg-gray-800 dark:border-gray-700">
+  
+      {% if order.book.image %}
+          <img src="{{order.book.image.url}}" class="rounded-t-lg m-3"  alt="some issue...">
+      {% else %}
+          <img src="{% static 'default-car-image.jpg' %}" class="rounded-t-lg m-3" alt="Default image">
+      {% endif %}
+  <div class="p-5">
+      
+      <h2 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{order.book.title}}</h2>
+      <h6 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white"><Strong>Category: </Strong>{{order.book.category}}</h6>
+    
+      <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{order.book.description }}</p>
+      <a href="{% url 'return' order.book.id %}" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+          Return
+      </a>
+    </div>
+    
+</div>
+{% endfor %}
+</div>
+</div>
+
+{% endblock content %}

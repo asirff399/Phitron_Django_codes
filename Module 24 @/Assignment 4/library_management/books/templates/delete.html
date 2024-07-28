@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load tailwind_filters %}
+{%  load crispy_forms_tags %} 
+{% block content %}
+<div class="w-full flex mt-5 justify-center" style="margin-bottom: 100px;">
+    <div class="bg-white w-5/12 rounded-lg">
+        <h1 class="font-bold text-3xl text-center pb-5 pt-10 px-5">Delete Book</h1>
+        <form method="post" class="px-8 pt-6 pb-8 mb-4">
+            {% csrf_token %}
+            {{form | crispy}}
+            <div class="flex w-full justify-center">
+                <button class="bg-blue-900 text-white hover:text-blue-900 hover:bg-white border border-blue-900 font-bold px-4 py-2 rounded-lg" type="submit">
+                Submit
+            </button>
+            </div>
+        </form>
+    </div>
+    
+</div>
+{% endblock %} 
+

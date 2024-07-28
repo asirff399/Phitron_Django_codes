@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+<h1 class="text-center my-4 text-2xl font-bold"style="font-size:50px;">Details</h1>
+<div class="flex flex-wrap justify-evenly mx-5 gap-3 p-3 shadow-2xl bg-gray-200">
+    <div>
+        {% if books.image %}
+            <img src="{{ books.image.url }}" class=" mx-auto" alt="{{ books.name }}" style="width: 300px; margin: 75px;">
+        {% else %}
+            <img src="{% static 'default-book-image.jpg' %}" class="w-3/4 mx-auto" alt="Default image">
+        {% endif %}
+    </div>
+    <div class="flex flex-col w-full lg:w-1/2 justify-center items-start pt-12 pb-24 px-6 bg-white rounded-2xl bg-opacity-70 mx-3 ">
+        <div class="bg-white shadow-md rounded-lg overflow-hidden">
+            <div class="p-4">
+                <div class="p-3 border-b">
+                    <h3 class="text-lg text-center font-bold my-2">{{books.title}}</h3>
+                    <h5 class="text-md m-1"><strong>Author: </strong>{{ books.author }}</h5>
+                    <h5 class="text-md m-1 pb-2+"><strong>Category: </strong>{{ books.category }}</h5>
+                    <p> {{ books.description }}</p>
+                </div>
+                <div class="text-center p-3 my-3 border-b">
+                    <h5 class="text-md"><strong>Price: </strong>${{books.borrowing_price}} <small class="inline-block bg-gray-200 text-gray-700 rounded-full px-3 py-1 ml-5">Stock: {{books.quantity}}</small></h5>
+                    {% if request.user.is_authenticated %}
+                        <a href="{% url 'borrow' books.id %}" class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded w-full block my-3">Borrow</a>
+                        {% comment %} <form action="{% url 'borrow' books.id %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded w-full block my-3">Borrow</button>
+                        </form> {% endcomment %}
+                    {% endif %}
+                </div>
+                <div>
+                    {% if request.user.is_authenticated %}
+                    <div class="flex flex-wrap" style="margin-inline: 25%;">
+                        <a href="{% url 'add_book' %}" class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded m-1 block">Add</a>
+                        <a href="{% url 'edit' books.id %}" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded m-1 block">Edit</a>
+                        <a href="{% url 'delete' books.id %}" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded m-1 block">Delete</a>
+                    </div>
+                    {% endif %}
+                    <a href="{% url 'home' %}" class="bg-gray-800 hover:bg-gray-900 text-white font-bold py-2 px-4 rounded w-full block my-3">Back</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class=" w-8/9 mx-5 p-2 bg-white shadow-md rounded-lg p-4 m-5">
+    <h1 class="font-bold text-center" style="font-size:30px;color:darkmagenta">Reviews</h1>
+    <h5 class="text-md border-2 p-1 m-4">Total Review: {{ reviews|length }}</h5>
+    <div class="flex flex-wrap gap-3">
+        {% for review in reviews %}
+        <div class="w-2/5 bg-white shadow-md rounded-lg p-2 my-2 ">
+            <p><strong>{{review.name}}</strong>: {{review.body}} <small class="shadow-md rounded-lg p-2 mx-3">{{review.rating}} <i class="fa fa-star-o" style="font-size:14px;color:red"></i></small> <br> <small>{{review.created_at}}</small></p>
+        </div>
+        {% endfor %}
+    </div>
+    
+</div>
+{% if request.user.is_authenticated %}
+<div class="my-5" style="margin-bottom: 100px;">
+    <form class="bg-white shadow-md rounded-lg p-4 mx-auto" style="width:70%;" method="post">
+        <h1 class="font-bold text-center" style="font-size:30px;color:goldenrod">Your Reviews</h1>
+        {% csrf_token %}
+        {{ review_form|crispy }}
+        <button class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded mt-4 w-full">Submit</button>
+    </form>
+</div>
+{% endif %}
+{% endblock content %}
