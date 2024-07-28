@@ -32,11 +32,12 @@
 <div class="d-flex flex-wrap m-5 gap-3 border p-3 ">
     {% for c in data %}
     <div class="card" style="width: 22rem;">
+        
         {% if c.image %}
             <img src="{{c.image.url}}" class="card-img-top img-fluid"  alt="some issue...">
         {% else %}
             <img src="{% static 'default-car-image.jpg' %}" class="card-img-top img-fluid w-75" alt="Default image">
-        {% endif %}
+        {% endif %} 
         <div class="card-body">
           <h3 class="card-title">{{c.name}}</h3>
           <h5 class="card-title"><strong>Price: </strong>${{c.price}}</h5>

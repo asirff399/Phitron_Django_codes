@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from brand.models import CarBrand
 # Create your models here.
 class Cars(models.Model):
-    image = models.ImageField(upload_to='car/media/uploads/',blank=True,null=True)
+    image = models.FileField(upload_to='car/media/uploads/',blank=True,null=True)
     name = models.CharField(max_length=100)
     body = models.TextField()
     price = models.IntegerField()
