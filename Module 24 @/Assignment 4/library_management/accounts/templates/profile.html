@@ -17,17 +17,15 @@
 
 <div>
   <h1 class="m-5 text-center text-4xl font-bold shadow-inner">Your Borrowed books</h1>
-  <div class="flex flex-wrap m-5 gap-3 p-3 ">
+  <div class="flex flex-wrap m-5 gap-3 p-3 " style="margin-bottom: 100px;">
     {% for order in orders %}
 <div class="max-w-sm shadow-2xl bg-gray-200 border border-gray-200 rounded-lg  dark:bg-gray-800 dark:border-gray-700">
-  
-      {% if order.book.image %}
-          <img src="{{order.book.image.url}}" class="rounded-t-lg m-3"  alt="some issue...">
-      {% else %}
-          <img src="{% static 'default-car-image.jpg' %}" class="rounded-t-lg m-3" alt="Default image">
-      {% endif %}
   <div class="p-5">
-      
+        {% if order.book.image %}
+            <img src="{{ order.book.image.url }}" class="w-full " style="width: 200px;margin-inline:auto ;margin-block: 10px;" alt="some issue...">
+        {% else %}
+            <img src="{% static 'default-book-image.jpg' %}" class="w-full" alt="Default image">
+        {% endif %}
       <h2 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{order.book.title}}</h2>
       <h6 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white"><Strong>Category: </Strong>{{order.book.category}}</h6>
     
@@ -36,7 +34,6 @@
           Return
       </a>
     </div>
-    
 </div>
 {% endfor %}
 </div>

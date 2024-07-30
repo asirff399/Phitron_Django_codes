@@ -17,6 +17,7 @@ from django.contrib import messages
 from django.views.generic import ListView
 from datetime import datetime
 from django.db.models import Sum
+from django.http import HttpResponseForbidden
 # Create your views here.
 class AddBookView(CreateView):
     model = Books
@@ -39,26 +40,31 @@ class UpdateBookView(UpdateView):
     model = Books
     form_class = BooksForm
     template_name = 'edit.html'
-    success_url = reverse_lazy('profile')
+    success_url = reverse_lazy('home')
     pk_url_kwarg = 'id'
 
 class DeleteBookView(DeleteView):
     model = Books
     pk_url_kwarg = 'id'
     template_name = 'delete.html'
-    success_url = reverse_lazy('profile')
+    success_url = reverse_lazy('home')
 
 class BookDetailsView(DetailView):
     model = Books
     template_name = 'details.html'
     pk_url_kwarg = 'id'
-
+    
     def post(self,request,*args, **kwargs):
         review_form = ReviewForm(data = self.request.POST)
         book = self.get_object()
+
+        if not Order.user_has_borrowed_book(request.user, book):
+            return HttpResponseForbidden("You can only review books that you have borrowed.")
+        
         if review_form.is_valid():
             new_review = review_form.save(commit=False)
             new_review.book = book
+            new_review.user = request.user
             new_review.save()
             return self.get(request,*args, **kwargs)
         
@@ -99,8 +105,8 @@ def BorrowBook(request,id):
         )
 
         messages.success(request,
-            f'{book.title} was borrowed successfully'
-            '{"{:,.2f}".format(float(amount))}$ was deducted from your account.'
+            f'{book.title} was borrowed successfully. '
+            f' {book.borrowing_price}$ was deducted from your account.'
         )
     else:
         messages.error(request,
@@ -127,8 +133,8 @@ def ReturnBook(request,id):
     ) 
 
     messages.success(request,
-        f'{book.title} was returned successfully'
-        '{"{:,.2f}".format(float(amount))}$ was return to your account.'
+        f'{book.title} was returned successfully.'
+        f'  {book.borrowing_price}$ was return to your account.'
     )
     send_email(request.user,book.borrowing_price,'Return Book Message','return_email.html')
     return redirect('order_report')

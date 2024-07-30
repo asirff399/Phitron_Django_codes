@@ -24,10 +24,6 @@
                     <h5 class="text-md"><strong>Price: </strong>${{books.borrowing_price}} <small class="inline-block bg-gray-200 text-gray-700 rounded-full px-3 py-1 ml-5">Stock: {{books.quantity}}</small></h5>
                     {% if request.user.is_authenticated %}
                         <a href="{% url 'borrow' books.id %}" class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded w-full block my-3">Borrow</a>
-                        {% comment %} <form action="{% url 'borrow' books.id %}" method="post">
-                            {% csrf_token %}
-                            <button type="submit" class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded w-full block my-3">Borrow</button>
-                        </form> {% endcomment %}
                     {% endif %}
                 </div>
                 <div>

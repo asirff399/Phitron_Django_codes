@@ -19,32 +19,12 @@
         <img style="height: 410px; width: 500px;" class ="rounded-2xl " src ="{% static 'book.jpg' %}"/>
     </div>
 </div>
-{% comment %} <div class="flex justify-center my-5 pt-3 ">
-    <div class="flex flex-col md:flex-row" role="group" aria-label="Basic checkbox toggle button group">
-        {% for c in categories %}
-        {% comment %} <div class="m-4">
-            <input type="radio" class="hidden" name="category" id="{{c.id}}" autocomplete="off">
-            <label class="rounded p-2 m-2 bg-black transition delay-150 duration-300 ease-in-out" for="{{c.id}}">
-                <a href="{% url 'category_wise' c.slug %}" class="text-decoration-none text-white ">{{c.name}}</a>
-            </label>
-        </div> 
-        <div class=" m-4">
-            <input id="{{c.id}}" type="radio" value="category" name="category" class="hidden btn-check">
-            <label for="{{c.id}}" class="rounded p-2 m-2 bg-black transition delay-150 duration-300 ease-in-out">
-                <a href="{% url 'category_wise' c.slug %}" class="text-decoration-none text-white ">{{c.name}}</a>
-            </label>
-        </div> 
-        {% endfor %}
-    </div>
-</div> {% endcomment %}
 
-
-
-<div class="md:flex shadow-2xl bg-gray-200">
+<div class="md:flex shadow-2xl bg-gray-200" style="margin-bottom: 100px; padding-bottom: 20px;">
     <ul class="sticky flex-column space-y space-y-4 text-sm font-medium text-gray-500 dark:text-gray-400 md:me-4 mb-4 md:mb-0">
         {% for c in categories %}
         <div class=" m-4">
-            <input id="{{c.id}}" type="radio" value="category" name="category" class="hidden btn-check">
+            <input id="{{c.id}}" type="radio" value="category" name="category" class="hidden btn-check" autocomplete="off">
             <label for="{{c.id}}" class="inline-flex items-center px-4 py-3 text-white bg-black rounded-lg active w-full dark:bg-blue-600">
                 <a href="{% url 'category_wise' c.slug %}" class="text-decoration-none text-white ">{{c.name}}</a>
             </label>
@@ -55,20 +35,20 @@
         <div class="w-25 ms-5 text-center" >
             <h2 style="margin:auto;> background-color: aquamarine;" class="w-48 shadow-sm p-3 text-black font-bold bg-pink-200 rounded-full">Total Books Found : {{ data | length }}</h2>
         </div>
-        <div class="flex flex-wrap m-5 gap-3 shadow-lg p-3" style="margin-bottom: 100px;">
-            {% for c in data %}
-            <div class="max-w-sm rounded overflow-hidden shadow-lg bg-white m-2 p-1" style="width: 330px;">
-                {% if c.image %}
-                    <img src="{{ c.image.url }}" class="w-full my-2" style="width: 200px;margin: auto;" alt="some issue...">
+        <div class="flex flex-wrap m-5 shadow-lg p-3" style="margin-bottom: 100px;">
+            {% for b in data %}
+            <div class="max-w-sm rounded overflow-hidden shadow-lg bg-white m-2 p-1" style="width: 315px;"> 
+                {% if b.image %}
+                    <img src="{{ b.image.url }}" class="w-full " style="width: 200px;margin-inline:auto ;margin-block: 10px;" alt="some issue...">
                 {% else %}
-                    <img src="{% static 'default-car-image.jpg' %}" class="w-full" alt="Default image">
+                    <img src="{% static 'default-book-image.jpg' %}" class="w-full" alt="Default image">
                 {% endif %}
                 <div class="px-3 py-3 leading-8 ">
-                  <h3 class="font-bold text-xl mb-2">{{ c.title }}</h3>
-                  <h5 class="text-gray-700 text-base"><strong>Borrow Price: </strong>${{ c.borrowing_price }}</h5>
-                  <h5 class="text-gray-700 text-base"><strong>Category: </strong>{{ c.category }}</h5>
-                  <p class="text-gray-700 text-base mb-2"><strong>Description: </strong>{{ c.description | truncatewords:10 }}</p>
-                  <a href="{% url 'details' c.id %}" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded m-y-3">Details</a>
+                  <h3 class="font-bold text-xl mb-2">{{ b.title }}</h3>
+                  <h5 class="text-gray-700 text-base"><strong>Borrow Price: </strong>${{ b.borrowing_price }}</h5>
+                  <h5 class="text-gray-700 text-base"><strong>Category: </strong>{{ b.category }}</h5>
+                  <p class="text-gray-700 text-base mb-2"><strong>Description: </strong>{{ b.description | truncatewords:10 }}</p>
+                  <a href="{% url 'details' b.id %}" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded m-y-3">Details</a>
                 </div>
             </div>
             {% endfor %}
@@ -77,3 +57,6 @@
 </div>
 
 {% endblock %}
+
+
+

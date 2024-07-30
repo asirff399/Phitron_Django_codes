@@ -11,14 +11,6 @@ class CategoryView(ListView):
     context_object_name = 'categories'
     template_name = './core/templates/index.html'
 
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     categories = CategoryModel.objects.all()
-    #     categories_form = CategoryForm()
-    #     context["categories"] = categories
-    #     context["categories_form"] = categories_form
-    #     return context
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['data'] = Books.objects.all()
