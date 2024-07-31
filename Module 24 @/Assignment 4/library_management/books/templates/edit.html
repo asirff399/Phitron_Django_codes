@@ -7,7 +7,7 @@
 <div class="w-full flex mt-5 justify-center" style="margin-bottom: 100px;">
     <div class="bg-white w-5/12 rounded-lg">
         <h1 class="font-bold text-3xl text-center pb-5 pt-10 px-5">Edit Book</h1>
-        <form method="post" class="px-8 pt-6 pb-8 mb-4">
+        <form method="post" enctype="multipart/form-data" class="px-8 pt-6 pb-8 mb-4">
             {% csrf_token %}
             {{form | crispy}}
             <div class="flex w-full justify-center">
