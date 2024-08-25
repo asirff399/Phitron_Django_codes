@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Navbar -->
+  <div id="navbar"></div>
+  <!-- All Pet -->
+   <div>
+      <h1 class="m-10 text-5xl font-semibold text-center text-green-500" >All Pets</h1>
+      <!-- Pet Category -->
+      <div class="font-sans p-4 " >
+        <ul id="pet-types" class="flex gap-2 w-max bg-white p-2 rounded-full shadow-[0_2px_8px_-1px_rgba(6,81,237,0.4)]" style="margin: auto; ">
+            <button type="button" onclick="loadAllPet()"
+                    class="bg-white px-7 shadow-xl shadow-purple-200 rounded-full text-black text-sm tracking-wider font-medium outline-none border border-purple-600 active:shadow-inner">All
+            </button>
+        </ul>
+      </div>
+      <!-- Pets -->
+      <div id="all-pet" class="w-4/6 m-auto flex flex-wrap"></div>
+      <div id="category-pet" class="flex flex-wrap"></div>
+   </div>
+  
+
+
+
+  <!-- Footer -->
+  <div id="footer" class="w-full"></div>
+  <!-- Scripts -->
+  <script src="./navbar.js"></script>
+  <script src="./footer.js"></script>
+  <script src="./app.js"></script>
+  <script src="./auth.js"></script>
+  <script src="./profile.js"></script>
+  <script src="./petCategory.js"></script>
+  <script src="./logout.js"></script>
+</body>
+</html>
